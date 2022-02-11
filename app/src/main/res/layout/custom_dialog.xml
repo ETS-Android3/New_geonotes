@@ -18,6 +18,24 @@
         android:hint="Title"
         android:maxLines="1"
         android:padding="10dp" />
+    <EditText
+        android:id="@+id/et_addressee"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:drawable/editbox_background_normal"
+        android:hint="Addressee (emails)"
+        android:ems="10"
+        android:inputType="textEmailAddress"
+        android:padding="10dp"/>
+
+    <EditText
+        android:id="@+id/et_range"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Range (km)"
+        android:ems="10"
+        android:inputType="numberDecimal"
+        android:padding="10dp"/>
 
     <EditText
         android:id="@+id/et_description"

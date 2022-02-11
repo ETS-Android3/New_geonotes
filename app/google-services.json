@@ -1,42 +1,62 @@
 {
   "project_info": {
-    "project_number": "1052110776923",
-    "firebase_url": "https://geonotes-udacity.firebaseio.com",
-    "project_id": "geonotes-udacity",
-    "storage_bucket": "geonotes-udacity.appspot.com"
+    "project_number": "96365120979",
+    "project_id": "ubicuo-8d18b",
+    "storage_bucket": "ubicuo-8d18b.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1052110776923:android:1b98c5d1ed088c11d3ed7e",
+        "mobilesdk_app_id": "1:96365120979:android:c649a2796b515ef7d27326",
         "android_client_info": {
           "package_name": "com.abhijith.nanodegree.geonotes"
         }
       },
       "oauth_client": [
         {
-          "client_id": "1052110776923-cpbsm41qakr6skajd0pqo4iq25lrme3p.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.abhijith.nanodegree.geonotes",
-            "certificate_hash": "46bb9691627ed542d219c0fa287bd9d23aef2378"
-          }
-        },
-        {
-          "client_id": "1052110776923-elp2r5pb4f884it3euo9g57aa5es729t.apps.googleusercontent.com",
+          "client_id": "96365120979-2sg8j9k9kgn2b5etpao44hqqktde8dm5.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCYbip4Aesn5rKK1mfAj5f3iGjylPbNoXI"
+          "current_key": "AIzaSyCyaUL0Z7Y7BM3umOsfAF0YxuNDaYPWCgc"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "1052110776923-elp2r5pb4f884it3euo9g57aa5es729t.apps.googleusercontent.com",
+              "client_id": "96365120979-2sg8j9k9kgn2b5etpao44hqqktde8dm5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:96365120979:android:7447d2a36482516dd27326",
+        "android_client_info": {
+          "package_name": "ubicuo.geonotes"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "96365120979-2sg8j9k9kgn2b5etpao44hqqktde8dm5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCyaUL0Z7Y7BM3umOsfAF0YxuNDaYPWCgc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "96365120979-2sg8j9k9kgn2b5etpao44hqqktde8dm5.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
