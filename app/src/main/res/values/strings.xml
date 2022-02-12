@@ -3,6 +3,7 @@
     <string name="title_footprint">My Footprint</string>
     <string name="title_notesList">Notes List</string>
     <string name="title_profile">Profile</string>
+    <string name="title_shared">Shared</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

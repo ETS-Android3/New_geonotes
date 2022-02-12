@@ -12,6 +12,11 @@
         android:title="@string/title_notesList" />
 
     <item
+        android:id="@+id/navigation_shared"
+        android:icon="@drawable/ic_dashboard_black_24dp"
+        android:title="@string/title_shared" />
+
+    <item
         android:id="@+id/navigation_profile"
         android:icon="@drawable/ic_person"
         android:title="@string/title_profile" />

@@ -59,9 +59,15 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 fragment = new NotesListFragment();
                 break;
 
+                //agregado
+            case R.id.navigation_shared:
+                fragment = new SharedFragment();
+                break;
+
             case R.id.navigation_profile:
                 fragment = new ProfileFragment();
                 break;
+
         }
 
         return pushFragment(fragment);
