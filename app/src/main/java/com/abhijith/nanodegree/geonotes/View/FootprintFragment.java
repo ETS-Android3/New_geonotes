@@ -271,6 +271,9 @@ public class FootprintFragment extends Fragment implements OnMapReadyCallback {
 
         EditText title = dialogView.findViewById(R.id.et_title);
         EditText description = dialogView.findViewById(R.id.et_description);
+        EditText addressee = dialogView.findViewById(R.id.et_addressee);
+        EditText range = dialogView.findViewById(R.id.et_range);
+        EditText expiration = dialogView.findViewById(R.id.et_expiration);
         TextView date = dialogView.findViewById(R.id.tv_date);
         TextView formLocation = dialogView.findViewById(R.id.tv_location);
 
@@ -285,11 +288,14 @@ public class FootprintFragment extends Fragment implements OnMapReadyCallback {
 
             String heading = title.getText().toString().trim(); //title
             String desc = description.getText().toString().trim(); //description
+            String ad = addressee.getText().toString().trim(); //Direccion de amigo
+            String ran = range.getText().toString().trim(); //Rango de recepción.
+            String ex = expiration.getText().toString().trim(); //Fecha de expiracion
 
             if (TextUtils.isEmpty(heading)) {
                 Toast.makeText(this.getActivity(), getString(R.string.error_empty_title), Toast.LENGTH_SHORT).show();
             } else {
-                Notes notes = new Notes(heading, desc, email, currentDate, location, String.valueOf(latLng.latitude), String.valueOf(latLng.longitude));
+                Notes notes = new Notes(heading, desc, ad, ran, ex, email, currentDate, location, String.valueOf(latLng.latitude), String.valueOf(latLng.longitude));
                 db.collection("notes")
                         .add(notes)
                         .addOnSuccessListener(documentReference -> {
