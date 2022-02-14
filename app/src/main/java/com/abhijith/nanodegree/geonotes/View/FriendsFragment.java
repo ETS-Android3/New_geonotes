@@ -1,11 +1,14 @@
 package com.abhijith.nanodegree.geonotes.View;
 
 import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+
 
 import androidx.fragment.app.Fragment;
 
@@ -18,21 +21,32 @@ public class FriendsFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view= inflater.inflate(R.layout.fragment_friend,container,false);
-        Button buttonFriend = (Button)view.findViewById(R.id.button_friend);
+        Button button_friend = view.findViewById((R.id.button_friend));
+        button_friend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mostrarDialogo();
+            }
+        });
         return view;
     }
-    @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
-        // Setup any handles to view objects here
-        // EditText etFoo = (EditText) view.findViewById(R.id.etFoo);
-    }
-    private void dialogFriend(View view) {
-        AlertDialog.Builder dialog = new AlertDialog.Builder(this.getContext());
-        LayoutInflater inflater = this.getLayoutInflater();
-        View dialogView = inflater.inflate(R.layout.custom_dialog, null);
-        dialog.setView(dialogView);
-        dialog.setCancelable(true);
-        dialog.setIcon(R.drawable.geonotes_logo_round);
-        dialog.setTitle(getString(R.string.dialog_add_note_title));
+
+    private void mostrarDialogo(){
+        new AlertDialog.Builder(this.getContext())
+                .setTitle("Esto es un titulo")
+                .setMessage("Esto es un mensaje")
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        Log.d("Mensaje","Acepto");
+                    }
+                })
+                .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        Log.d("mensaje","Se cancelo la accion");
+                    }
+                })
+                .show();
     }
 }
