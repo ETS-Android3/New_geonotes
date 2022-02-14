@@ -19,6 +19,7 @@ public class Notes implements Serializable, ClusterItem {
     private String addressee;
     private String range;
     private String expiration;
+    private String hour;
 
     public String getEmail() {
         return email;
@@ -114,7 +115,15 @@ public class Notes implements Serializable, ClusterItem {
         this.expiration = expiration;
     }
 
-    public Notes(String title, String description, String addressee, String range, String expiration, String email, String date, String location, String latitude, String longitute) {
+    public String getHour() {
+        return hour;
+    }
+
+    public void setHour(String hour ) {
+        this.hour = hour;
+    }
+
+    public Notes(String title, String description, String addressee, String range, String expiration, String hour, String email, String date, String location, String latitude, String longitute) {
         this.email = email;
         this.title = title;
         this.description = description;
@@ -125,6 +134,7 @@ public class Notes implements Serializable, ClusterItem {
         this.addressee = addressee;
         this.range = range;
         this.expiration = expiration;
+        this.hour = hour;
     }
 
     public Notes() {

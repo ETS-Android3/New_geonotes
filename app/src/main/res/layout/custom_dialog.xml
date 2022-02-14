@@ -32,7 +32,7 @@
         android:id="@+id/et_range"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Range (km)"
+        android:hint="Range (m)"
         android:ems="10"
         android:inputType="numberDecimal"
         android:padding="10dp"/>
@@ -44,11 +44,19 @@
         android:ems="10"
         android:inputType="date" />
 
+
+    <EditText
+        android:id="@+id/et_Hour"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="time" />
+
     <EditText
         android:id="@+id/et_description"
         style="@style/NotesListDescriptionStyle"
         android:layout_width="match_parent"
-        android:layout_height="250dp"
+        android:layout_height="68dp"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
         android:background="@android:drawable/editbox_background_normal"

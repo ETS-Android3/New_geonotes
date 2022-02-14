@@ -15,6 +15,10 @@
         android:id="@+id/navigation_shared"
         android:icon="@drawable/ic_dashboard_black_24dp"
         android:title="@string/title_shared" />
+    <item
+        android:id="@+id/navigation_friends"
+        android:icon="@drawable/ic_dashboard_black_24dp"
+        android:title="@string/title_friend"/>
 
     <item
         android:id="@+id/navigation_profile"

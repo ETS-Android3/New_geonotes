@@ -4,6 +4,7 @@
     <string name="title_notesList">Notes List</string>
     <string name="title_profile">Profile</string>
     <string name="title_shared">Shared</string>
+    <string name="title_friend">My Friends</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -56,6 +57,7 @@
     <string name="message_register_success">Registration successful!</string>
     <string name="error_registration_fail">Registration failed! Please try again later</string>
     <string name="dialog_add_note_title">Add Notes</string>
+    <string name="dialog_add_friend_title">Add Friend</string>
     <string name="btn_submit">SUBMIT</string>
     <string name="btn_cancel">CANCEL</string>
     <string name="appwidget_text">EXAMPLE</string>

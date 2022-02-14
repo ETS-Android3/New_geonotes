@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import com.abhijith.nanodegree.geonotes.Model.Friends;
 import com.abhijith.nanodegree.geonotes.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -64,9 +65,13 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 fragment = new SharedFragment();
                 break;
 
+            case R.id.navigation_friends:
+                fragment = new FriendsFragment();
+                break;
             case R.id.navigation_profile:
                 fragment = new ProfileFragment();
                 break;
+
 
         }
 

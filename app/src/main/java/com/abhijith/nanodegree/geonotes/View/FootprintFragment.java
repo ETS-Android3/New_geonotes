@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -74,7 +75,6 @@ public class FootprintFragment extends Fragment implements OnMapReadyCallback {
     ImageView mGps;
 
     private String finalLocation;
-
     private GoogleMap mMap;
     private Location currentLocation;
 
@@ -110,7 +110,6 @@ public class FootprintFragment extends Fragment implements OnMapReadyCallback {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_footprint, container, false);
 
@@ -206,7 +205,6 @@ public class FootprintFragment extends Fragment implements OnMapReadyCallback {
         getAllNotes();
 
         mMap.setOnMapClickListener(this::displayNoteDialog);
-
         mMap.setOnMarkerClickListener(marker -> {
             displayMarkerWithNotes(marker);
             return true;
@@ -259,7 +257,11 @@ public class FootprintFragment extends Fragment implements OnMapReadyCallback {
                 .addOnFailureListener(e -> Log.d(TAG, "Error receiving all documents to show on map"));
     }
 
-
+    private void displayFriendDialog(View v){
+        AlertDialog.Builder friend_dialog = new AlertDialog.Builder(this.getContext());
+        friend_dialog.setCancelable(true);
+        friend_dialog.setTitle(getString(R.string.dialog_add_friend_title));
+    }
     private void displayNoteDialog(LatLng latLng) {
         AlertDialog.Builder dialog = new AlertDialog.Builder(this.getContext());
         LayoutInflater inflater = this.getLayoutInflater();
@@ -274,6 +276,7 @@ public class FootprintFragment extends Fragment implements OnMapReadyCallback {
         EditText addressee = dialogView.findViewById(R.id.et_addressee);
         EditText range = dialogView.findViewById(R.id.et_range);
         EditText expiration = dialogView.findViewById(R.id.et_expiration);
+        EditText hour = dialogView.findViewById(R.id.et_Hour);
         TextView date = dialogView.findViewById(R.id.tv_date);
         TextView formLocation = dialogView.findViewById(R.id.tv_location);
 
@@ -289,13 +292,14 @@ public class FootprintFragment extends Fragment implements OnMapReadyCallback {
             String heading = title.getText().toString().trim(); //title
             String desc = description.getText().toString().trim(); //description
             String ad = addressee.getText().toString().trim(); //Direccion de amigo
-            String ran = range.getText().toString().trim(); //Rango de recepción.
+            String ran = range.getText().toString().trim(); //Rango de recepción
             String ex = expiration.getText().toString().trim(); //Fecha de expiracion
+            String ho = hour.getText().toString().trim(); //Hora
 
             if (TextUtils.isEmpty(heading)) {
                 Toast.makeText(this.getActivity(), getString(R.string.error_empty_title), Toast.LENGTH_SHORT).show();
             } else {
-                Notes notes = new Notes(heading, desc, ad, ran, ex, email, currentDate, location, String.valueOf(latLng.latitude), String.valueOf(latLng.longitude));
+                Notes notes = new Notes(heading, desc, ad, ran, ex,ho, email, currentDate, location, String.valueOf(latLng.latitude), String.valueOf(latLng.longitude));
                 db.collection("notes")
                         .add(notes)
                         .addOnSuccessListener(documentReference -> {
