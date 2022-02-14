@@ -2,6 +2,7 @@ package com.abhijith.nanodegree.geonotes.View;
 
 import android.Manifest;
 import android.app.AlertDialog;
+import android.app.DatePickerDialog;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
@@ -12,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -276,6 +278,29 @@ public class FootprintFragment extends Fragment implements OnMapReadyCallback {
         EditText expiration = dialogView.findViewById(R.id.et_expiration);
         TextView date = dialogView.findViewById(R.id.tv_date);
         TextView formLocation = dialogView.findViewById(R.id.tv_location);
+
+        DatePickerDialog.OnDateSetListener setListener;
+
+        Calendar calendar = Calendar.getInstance();
+        final int year = calendar.get(Calendar.YEAR);
+        final int month = calendar.get(Calendar.MONTH);
+        final int day = calendar.get(Calendar.DAY_OF_MONTH);
+
+        expiration.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DatePickerDialog datePickerDialog= new DatePickerDialog(
+                        FootprintFragment.this.getContext(), new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int month, int day) {
+                        month = month+1;
+                        String date = year+"-"+month+"-"+day;
+                        expiration.setText(date);
+                    }
+                },year,month,day);
+                datePickerDialog.show();
+            }
+        });
 
         String currentDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.UK).format(Calendar.getInstance().getTime());
         date.setText(currentDate);
