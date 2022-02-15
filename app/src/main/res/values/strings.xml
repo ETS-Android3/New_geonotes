@@ -46,6 +46,7 @@
     <string name="note_added">Note added Successfully</string>
     <string name="my_location">My Location</string>
     <string name="error_empty_title">Title cannot be empty</string>
+    <string name="error_empty_friend">Friend cant be empty</string>
     <string name="error_map_request">You can\'t make map requests</string>
     <string name="message_email_check">Check Your Email</string>
     <string name="message_login_success">Login successful!</string>
@@ -57,6 +58,7 @@
     <string name="message_register_success">Registration successful!</string>
     <string name="error_registration_fail">Registration failed! Please try again later</string>
     <string name="dialog_add_note_title">Add Notes</string>
+
     <string name="dialog_add_friend_title">Add Friend</string>
     <string name="btn_submit">SUBMIT</string>
     <string name="btn_cancel">CANCEL</string>

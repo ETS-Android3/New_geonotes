@@ -68,6 +68,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
             case R.id.navigation_friends:
                 fragment = new FriendsFragment();
                 break;
+
             case R.id.navigation_profile:
                 fragment = new ProfileFragment();
                 break;

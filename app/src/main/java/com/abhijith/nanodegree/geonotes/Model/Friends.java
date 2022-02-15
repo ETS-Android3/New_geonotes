@@ -28,7 +28,7 @@ public class Friends {
         this.addressee = addressee;
     }
 
-    public Friends(String addressee,String email) {
+    public Friends(String addressee, String email) {
         this.email = email;
         this.addressee = addressee;
     }

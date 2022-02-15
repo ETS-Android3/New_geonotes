@@ -9,7 +9,22 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        tools:context=".View.LoginActivity">
+        tools:context=".View.LoginActivity"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="276dp">
+
+        <TextView
+            android:id="@+id/tv_date2"
+            style="@style/NotesListDescriptionStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="3dp"
+            android:layout_weight="0.5"
+            android:gravity="end"
+            tools:layout_editor_absoluteX="0dp"
+            tools:layout_editor_absoluteY="108dp"
+            tools:text="25 Nov 2019" />
 
         <ImageView
             android:id="@+id/imageView"
@@ -31,9 +46,20 @@
             android:layout_height="63dp"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
-            android:layout_marginEnd="125dp"
-            android:layout_marginBottom="400dp"
-            android:text="AddFriend"
-            android:onClick="dialogFriend"/>
+            android:layout_marginEnd="132dp"
+            android:layout_marginBottom="115dp"
+            android:text="AddFriend" />
+
+        <EditText
+            android:id="@+id/et_correo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginEnd="110dp"
+            android:layout_marginBottom="429dp"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text="Correo Amigo" />
     </RelativeLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
