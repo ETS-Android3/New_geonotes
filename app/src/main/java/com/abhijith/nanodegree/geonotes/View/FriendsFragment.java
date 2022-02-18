@@ -10,29 +10,28 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
+
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
+
 import android.widget.Toast;
 
 import com.abhijith.nanodegree.geonotes.Model.Friends;
-import com.google.firebase.FirebaseApp;
-import com.google.firebase.firestore.CollectionReference;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.abhijith.nanodegree.geonotes.R;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.Query;
-
-import butterknife.ButterKnife;
+import com.google.firebase.firestore.QuerySnapshot;
 
 public class FriendsFragment extends Fragment {
-        private FirebaseFirestore db = FirebaseFirestore.getInstance();
-        private CollectionReference friendsRef = db.collection("friends");
-        private FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        final FirebaseFirestore db = FirebaseFirestore.getInstance();
+        final FirebaseAuth mAuth = FirebaseAuth.getInstance();
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
@@ -44,24 +43,35 @@ public class FriendsFragment extends Fragment {
             boton_amigo.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    String comparar = "Correo Amigo";
+                    String comparar = correo_amigo.getText().toString().trim();
                     if(correo_amigo.getText().toString().isEmpty()){
                         Toast.makeText(getActivity(),"El correo esta vacio",Toast.LENGTH_SHORT).show();
                     }else{
-                        String ad = correo_amigo.getText().toString().trim();
-                        Friends friends = new Friends(ad, email);
                         db.collection("friends")
-                                .add(friends);
-                    }
-                    /*new AlertDialog.Builder(view.getContext())
-                            .setTitle("Closing application")
-                            .setMessage("Are you sure you want to exit?")
-                            .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
+                                .whereEqualTo("addressee", comparar)
+                                .get()
+                                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                                    @Override
+                                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
 
+                                        if (queryDocumentSnapshots.isEmpty()){
+                                            String ad = correo_amigo.getText().toString().trim();
+                                            Friends friends = new Friends(ad, email);
+                                            db.collection("friends")
+                                                    .add(friends);
+                                            Toast.makeText(getActivity(),"Se agrego exitosamente tu amigo",Toast.LENGTH_SHORT).show();
+                                        }else{
+                                            Toast.makeText(getActivity(),"Ya es tu amigo",Toast.LENGTH_SHORT).show();
+                                        }
+                                    }
+
+                                }).addOnFailureListener(new OnFailureListener() {
+                                 @Override
+                                public void onFailure(@NonNull Exception e) {
+                                     Toast.makeText(getActivity(),"Error al agregar",Toast.LENGTH_SHORT).show();
                                 }
-                            }).setNegativeButton("No", null).show();*/
+                                });
+                    }
                 }
             });
             return rootView;
