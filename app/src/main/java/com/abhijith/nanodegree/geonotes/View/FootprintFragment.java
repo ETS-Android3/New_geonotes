@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -24,6 +25,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 
 import com.abhijith.nanodegree.geonotes.Model.Notes;
+import com.abhijith.nanodegree.geonotes.Model.NotesPrivate;
 import com.abhijith.nanodegree.geonotes.R;
 import com.abhijith.nanodegree.geonotes.Utils.Constants;
 import com.abhijith.nanodegree.geonotes.Utils.GeoNotesUtils;
@@ -40,6 +42,7 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.libraries.places.api.Places;
 import com.google.android.libraries.places.api.model.Place;
@@ -48,6 +51,7 @@ import com.google.android.libraries.places.widget.listener.PlaceSelectionListene
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.maps.android.clustering.ClusterManager;
 
 import java.io.IOException;
@@ -204,7 +208,7 @@ public class FootprintFragment extends Fragment implements OnMapReadyCallback {
 
         getAllNotes();
 
-        mMap.setOnMapClickListener(this::displayNoteDialog);
+        mMap.setOnMapClickListener(this::displayDecisionDialog);
         mMap.setOnMarkerClickListener(marker -> {
             displayMarkerWithNotes(marker);
             return true;
@@ -256,11 +260,78 @@ public class FootprintFragment extends Fragment implements OnMapReadyCallback {
                 })
                 .addOnFailureListener(e -> Log.d(TAG, "Error receiving all documents to show on map"));
     }
+    private void displayDecisionDialog(LatLng latlng){
+        AlertDialog.Builder decision_dialog = new AlertDialog.Builder(this.getContext());
+        LayoutInflater inflater = this.getLayoutInflater();
+        View decision_dialog_view = inflater.inflate(R.layout.decision_dialog, null);
+        decision_dialog.setView(decision_dialog_view);
+        decision_dialog.setCancelable(true);
+        decision_dialog.setTitle("Escoja una opcion");
 
-    private void displayFriendDialog(View v){
-        AlertDialog.Builder friend_dialog = new AlertDialog.Builder(this.getContext());
-        friend_dialog.setCancelable(true);
-        friend_dialog.setTitle(getString(R.string.dialog_add_friend_title));
+        Button boton_privada = decision_dialog_view.findViewById(R.id.button_privada);
+        Button boton_publica = decision_dialog_view.findViewById(R.id.button_publica);
+        boton_publica.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                displayNoteDialog(latlng);
+            }
+        });
+        boton_privada.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                displayNotePrivateDialog(latlng);
+            }
+        });
+        decision_dialog.setNeutralButton(getString(R.string.btn_cancel), (alert, which) -> alert.dismiss());
+        decision_dialog.show();
+
+    }
+    private void displayNotePrivateDialog(LatLng latLng){
+        AlertDialog.Builder dialog = new AlertDialog.Builder(this.getContext());
+        LayoutInflater inflater = this.getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.notes_private_dialog, null);
+        dialog.setView(dialogView);
+        dialog.setCancelable(true);
+        dialog.setIcon(R.drawable.geonotes_logo_round);
+        dialog.setTitle(getString(R.string.dialog_add_note_title));
+
+        EditText title = dialogView.findViewById(R.id.et_title);
+        EditText description = dialogView.findViewById(R.id.et_description);
+        EditText range = dialogView.findViewById(R.id.et_range);
+        EditText expiration = dialogView.findViewById(R.id.et_expiration);
+        EditText hour = dialogView.findViewById(R.id.et_Hour);
+        TextView date = dialogView.findViewById(R.id.tv_date);
+        TextView formLocation = dialogView.findViewById(R.id.tv_location);
+        String currentDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.UK).format(Calendar.getInstance().getTime());
+        date.setText(currentDate);
+
+        String location = getLocationDetails(latLng);
+        formLocation.setText(location);
+        String email = mAuth.getCurrentUser().getEmail();
+
+        dialog.setPositiveButton(getString(R.string.btn_submit), (alert, which) -> {
+            String heading = title.getText().toString().trim(); //title
+            String desc = description.getText().toString().trim(); //description
+            String ran = range.getText().toString().trim(); //Rango de recepción
+            String ex = expiration.getText().toString().trim(); //Fecha de expiracion
+            String ho = hour.getText().toString().trim(); //Hora
+
+            if (TextUtils.isEmpty(heading)) {
+                Toast.makeText(this.getActivity(), getString(R.string.error_empty_title), Toast.LENGTH_SHORT).show();
+            }else{
+                NotesPrivate notesPrivate = new NotesPrivate(heading, desc, ran, ex,ho, email, currentDate, location, String.valueOf(latLng.latitude), String.valueOf(latLng.longitude));
+                db.collection("notes")
+                        .add(notesPrivate)
+                        .addOnSuccessListener(documentReference -> {
+                            Log.d(TAG, "DocumentSnapshot written with ID: " + documentReference.getId());
+                            Toast.makeText(getContext(), getString(R.string.note_added), Toast.LENGTH_SHORT).show();
+                            alert.dismiss();
+                            moveCamera(new LatLng(latLng.latitude, latLng.longitude), title.toString());
+                        })
+                        .addOnFailureListener(e -> Log.w(TAG, "Error adding document", e));
+            }
+        });
+        dialog.show();
     }
     private void displayNoteDialog(LatLng latLng) {
         AlertDialog.Builder dialog = new AlertDialog.Builder(this.getContext());
@@ -286,7 +357,6 @@ public class FootprintFragment extends Fragment implements OnMapReadyCallback {
         String location = getLocationDetails(latLng);
         formLocation.setText(location);
         String email = mAuth.getCurrentUser().getEmail();
-
         dialog.setPositiveButton(getString(R.string.btn_submit), (alert, which) -> {
 
             String heading = title.getText().toString().trim(); //title
@@ -299,17 +369,29 @@ public class FootprintFragment extends Fragment implements OnMapReadyCallback {
             if (TextUtils.isEmpty(heading)) {
                 Toast.makeText(this.getActivity(), getString(R.string.error_empty_title), Toast.LENGTH_SHORT).show();
             } else {
-                Notes notes = new Notes(heading, desc, ad, ran, ex,ho, email, currentDate, location, String.valueOf(latLng.latitude), String.valueOf(latLng.longitude));
-                db.collection("notes")
-                        .add(notes)
-                        .addOnSuccessListener(documentReference -> {
-                            Log.d(TAG, "DocumentSnapshot written with ID: " + documentReference.getId());
-                            Toast.makeText(this.getContext(), getString(R.string.note_added), Toast.LENGTH_SHORT).show();
-                            alert.dismiss();
-                            moveCamera(new LatLng(latLng.latitude, latLng.longitude), title.toString());
-                        })
-                        .addOnFailureListener(e -> Log.w(TAG, "Error adding document", e));
-
+                db.collection("friends")
+                        .whereEqualTo("addressee", ad)
+                        .whereEqualTo("email", email)
+                        .get()
+                        .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                            @Override
+                            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                                if(queryDocumentSnapshots.isEmpty()){
+                                    Toast.makeText(getContext(),"El destino no es amigo tuyo", Toast.LENGTH_SHORT).show();
+                                }else{
+                                    Notes notes = new Notes(heading, desc, ad, ran, ex,ho, email, currentDate, location, String.valueOf(latLng.latitude), String.valueOf(latLng.longitude));
+                                    db.collection("notes")
+                                            .add(notes)
+                                            .addOnSuccessListener(documentReference -> {
+                                                Log.d(TAG, "DocumentSnapshot written with ID: " + documentReference.getId());
+                                                Toast.makeText(getContext(), getString(R.string.note_added), Toast.LENGTH_SHORT).show();
+                                                alert.dismiss();
+                                                moveCamera(new LatLng(latLng.latitude, latLng.longitude), title.toString());
+                                            })
+                                            .addOnFailureListener(e -> Log.w(TAG, "Error adding document", e));
+                                }
+                            }
+                        });
             }
         });
 
