@@ -32,8 +32,9 @@
         android:id="@+id/et_range"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Range (m)"
+        android:hint="Range (km)"
         android:ems="10"
+        android:background="@android:drawable/editbox_background_normal"
         android:inputType="numberDecimal"
         android:padding="10dp"/>
 
@@ -42,7 +43,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:inputType="date" />
+        android:inputType="date"
+        android:background="@android:drawable/editbox_background_normal"
+        android:hint="Expiration Date"
+        android:padding="10dp"/>
 
 
     <EditText
@@ -50,7 +54,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:inputType="time" />
+        android:inputType="time"
+        android:background="@android:drawable/editbox_background_normal"
+        android:hint="Hour"
+        android:padding="10dp"/>
 
     <EditText
         android:id="@+id/et_description"
