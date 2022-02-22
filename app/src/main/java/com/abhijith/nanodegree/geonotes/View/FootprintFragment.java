@@ -318,6 +318,13 @@ public class FootprintFragment extends Fragment implements OnMapReadyCallback {
 
             if (TextUtils.isEmpty(heading)) {
                 Toast.makeText(this.getActivity(), getString(R.string.error_empty_title), Toast.LENGTH_SHORT).show();
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                builder.setTitle("Error");
+                builder.setMessage("Campo faltante");
+
+                builder.setPositiveButton("Aceptar", null);
+                AlertDialog dialog_2 = builder.create();
+                dialog_2.show();
             }else{
                 NotesPrivate notesPrivate = new NotesPrivate(heading, desc, ran, ex,ho, email, currentDate, location, String.valueOf(latLng.latitude), String.valueOf(latLng.longitude));
                 db.collection("notes")
@@ -329,6 +336,13 @@ public class FootprintFragment extends Fragment implements OnMapReadyCallback {
                             moveCamera(new LatLng(latLng.latitude, latLng.longitude), title.toString());
                         })
                         .addOnFailureListener(e -> Log.w(TAG, "Error adding document", e));
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                builder.setTitle("Hecho");
+                builder.setMessage("Nota creada con exito");
+
+                builder.setPositiveButton("Aceptar", null);
+                AlertDialog dialog_2 = builder.create();
+                dialog_2.show();
             }
         });
         dialog.show();
@@ -368,6 +382,13 @@ public class FootprintFragment extends Fragment implements OnMapReadyCallback {
 
             if (TextUtils.isEmpty(heading)) {
                 Toast.makeText(this.getActivity(), getString(R.string.error_empty_title), Toast.LENGTH_SHORT).show();
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                builder.setTitle("Error");
+                builder.setMessage("Nota no creada, campo faltante");
+
+                builder.setPositiveButton("Aceptar", null);
+                AlertDialog dialog_2 = builder.create();
+                dialog_2.show();
             } else {
                 db.collection("friends")
                         .whereEqualTo("addressee", ad)
@@ -378,6 +399,13 @@ public class FootprintFragment extends Fragment implements OnMapReadyCallback {
                             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                                 if(queryDocumentSnapshots.isEmpty()){
                                     Toast.makeText(getContext(),"El destino no es amigo tuyo", Toast.LENGTH_SHORT).show();
+                                    AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                                    builder.setTitle("Error");
+                                    builder.setMessage("Destino no es tu amigo");
+
+                                    builder.setPositiveButton("Aceptar", null);
+                                    AlertDialog dialog_2 = builder.create();
+                                    dialog_2.show();
                                 }else{
                                     Notes notes = new Notes(heading, desc, ad, ran, ex,ho, email, currentDate, location, String.valueOf(latLng.latitude), String.valueOf(latLng.longitude));
                                     db.collection("notes")
@@ -389,6 +417,13 @@ public class FootprintFragment extends Fragment implements OnMapReadyCallback {
                                                 moveCamera(new LatLng(latLng.latitude, latLng.longitude), title.toString());
                                             })
                                             .addOnFailureListener(e -> Log.w(TAG, "Error adding document", e));
+                                    AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                                    builder.setTitle("Hecho");
+                                    builder.setMessage("Nota creada con exito");
+
+                                    builder.setPositiveButton("Aceptar", null);
+                                    AlertDialog dialog_2 = builder.create();
+                                    dialog_2.show();
                                 }
                             }
                         });
