@@ -60,8 +60,22 @@ public class FriendsFragment extends Fragment {
                                             db.collection("friends")
                                                     .add(friends);
                                             Toast.makeText(getActivity(),"Se agrego exitosamente tu amigo",Toast.LENGTH_SHORT).show();
+                                            AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                                            builder.setTitle("Hecho");
+                                            builder.setMessage("Amigo agregado");
+
+                                            builder.setPositiveButton("Aceptar", null);
+                                            AlertDialog dialog_2 = builder.create();
+                                            dialog_2.show();
                                         }else{
                                             Toast.makeText(getActivity(),"Ya es tu amigo",Toast.LENGTH_SHORT).show();
+                                            AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                                            builder.setTitle("Error");
+                                            builder.setMessage("Ya es tu amigo");
+
+                                            builder.setPositiveButton("Aceptar", null);
+                                            AlertDialog dialog_2 = builder.create();
+                                            dialog_2.show();
                                         }
                                     }
 
